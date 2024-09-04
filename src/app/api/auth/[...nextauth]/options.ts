@@ -10,7 +10,7 @@ export const authOptions: NextAuthOptions = {
             id: "credentials",
             name: "Credentials",
             credentials: {
-                username: { label: "Username", type: "text" },
+                email: { label: "Email", type: "text" },
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials: any): Promise<any> {
@@ -60,11 +60,11 @@ export const authOptions: NextAuthOptions = {
             return token
         }
     },
-    pages: {
-        signIn: "/signin"
-    },
     session: {
         strategy: "jwt"
     },
     secret: process.env.NEXT_AUTH_SECRET,
+    pages: {
+        signIn: "/sign-in"
+    },
 }
