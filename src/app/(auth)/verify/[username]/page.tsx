@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 
 export default function VerifyAccount() {
   const router = useRouter();
+  const { username } = useParams<{ username: string }>();
   const params = useParams<{ username: string }>();
   const { toast } = useToast();
   const form = useForm<z.infer<typeof verifySchema>>({
@@ -28,7 +29,7 @@ export default function VerifyAccount() {
   const onSubmit = async (data: z.infer<typeof verifySchema>) => {
     try {
       const response = await axios.post(`/api/verifycode`, {
-        username: params.username,
+        username: encodeURIComponent(username),
         code: data.code,
       });
       toast({
@@ -65,12 +66,14 @@ export default function VerifyAccount() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Verification Code</FormLabel>
-                    <Input placeholder="Code" {...field} />
+                  <Input placeholder="Code" {...field} />
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">Verify</Button>
+            <Button type="submit" className="w-full">
+              Verify
+            </Button>
           </form>
         </Form>
       </div>
