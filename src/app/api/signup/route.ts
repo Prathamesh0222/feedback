@@ -63,10 +63,10 @@ export async function POST(req: Request) {
 
         const emailResponse = await sendVerificationEmail(email, username, verifyCode);
 
-        if (!emailResponse.success) {
+        if (!emailResponse?.success) {
             return Response.json({
                 success: false,
-                message: emailResponse.message,
+                message: emailResponse?.message,
             }, {
                 status: 500
             })
